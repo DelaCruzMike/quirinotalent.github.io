@@ -50,19 +50,25 @@
       background-position: center;
     }
 
-    .fade-section {
-      animation: fadeIn 0.9s ease-in-out both;
+    .reveal {
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.9s ease;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(24px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hover-card {
+      transition: all 0.35s ease;
+    }
+
+    .hover-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(129,140,248,0.75);
+      box-shadow: 0 25px 70px rgba(99,102,241,0.22);
     }
 
     .nav-link {
@@ -72,6 +78,14 @@
     .nav-link:hover {
       color: #818cf8;
       transform: translateY(-2px);
+    }
+
+    .footer-link {
+      transition: color 0.25s ease;
+    }
+
+    .footer-link:hover {
+      color: #818cf8;
     }
   </style>
 </head>
@@ -97,8 +111,8 @@
   </nav>
 
   <!-- HERO -->
-  <section class="relative z-10 min-h-screen flex items-center justify-center px-6 hero-bg fade-section pt-28">
-    <div class="max-w-6xl text-center">
+  <section class="relative z-10 min-h-screen flex items-center justify-center px-6 hero-bg pt-28">
+    <div class="max-w-6xl text-center reveal active">
 
       <p class="uppercase tracking-[0.35em] text-indigo-300 mb-6">
         Creator Growth Agency
@@ -130,7 +144,7 @@
   </section>
 
   <!-- THE PROBLEM -->
-  <section id="problem" class="relative z-10 px-6 py-28 fade-section">
+  <section id="problem" class="relative z-10 px-6 py-28 reveal">
     <div class="max-w-6xl mx-auto text-center">
 
       <p class="uppercase tracking-[0.3em] text-indigo-400 mb-5">
@@ -149,7 +163,7 @@
 
       <div class="grid md:grid-cols-3 gap-6 text-left">
 
-        <div class="glass rounded-3xl p-8">
+        <div class="glass hover-card rounded-3xl p-8">
           <h3 class="text-xl font-bold text-indigo-400 mb-4">Too Much To Manage</h3>
           <p class="text-gray-300 leading-relaxed">
             Creators are expected to post content, answer messages, track performance, manage platforms,
@@ -157,7 +171,7 @@
           </p>
         </div>
 
-        <div class="glass rounded-3xl p-8">
+        <div class="glass hover-card rounded-3xl p-8">
           <h3 class="text-xl font-bold text-indigo-400 mb-4">Operations Get Messy</h3>
           <p class="text-gray-300 leading-relaxed">
             Account handling, analytics, scheduling, team management, payroll, and daily execution can quickly
@@ -165,7 +179,7 @@
           </p>
         </div>
 
-        <div class="glass rounded-3xl p-8">
+        <div class="glass hover-card rounded-3xl p-8">
           <h3 class="text-xl font-bold text-indigo-400 mb-4">We Handle The Backend</h3>
           <p class="text-gray-300 leading-relaxed">
             Quirino Talent Company keeps creators hands-off with operations so they can focus on creating content,
@@ -178,7 +192,7 @@
   </section>
 
   <!-- SERVICES -->
-  <section id="services" class="relative z-10 px-6 py-24 fade-section">
+  <section id="services" class="relative z-10 px-6 py-24 reveal">
     <div class="max-w-6xl mx-auto">
 
       <div class="text-center mb-16">
@@ -193,7 +207,7 @@
 
       <div class="grid md:grid-cols-2 gap-8">
 
-        <div class="glass rounded-3xl p-10">
+        <div class="glass hover-card rounded-3xl p-10">
           <h3 class="text-2xl font-bold mb-6 text-indigo-400">
             OnlyFans Management
           </h3>
@@ -209,7 +223,7 @@
           </ul>
         </div>
 
-        <div class="glass rounded-3xl p-10">
+        <div class="glass hover-card rounded-3xl p-10">
           <h3 class="text-2xl font-bold mb-6 text-indigo-400">
             Social Media Marketing
           </h3>
@@ -230,7 +244,7 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about" class="relative z-10 px-6 py-24 fade-section">
+  <section id="about" class="relative z-10 px-6 py-24 reveal">
     <div class="max-w-5xl mx-auto text-center">
 
       <h2 class="text-4xl font-bold mb-8">
@@ -238,247 +252,168 @@
       </h2>
 
       <p class="text-gray-300 text-lg leading-relaxed">
-      In today’s creator economy, being successful is no longer just about creating good content. 
-      Most creators eventually face the same problem: the more they grow, the harder it becomes to manage everything behind the scenes. 
-      From handling multiple social media platforms, monitoring analytics, organizing schedules, managing fan interactions, coordinating teams, handling payroll, and keeping up with daily operations — creators often end up overwhelmed and burned out.
+        In today’s creator economy, being successful is no longer just about creating good content.
+        Most creators eventually face the same problem: the more they grow, the harder it becomes to manage everything behind the scenes.
+        From handling multiple social media platforms, monitoring analytics, organizing schedules, managing fan interactions,
+        coordinating teams, handling payroll, and keeping up with daily operations — creators often end up overwhelmed and burned out.
 
-      <br><br>
+        <br><br>
 
-        This is where Quirino Talent Company comes in. 
-        We provide the operational structure, marketing systems, and backend support needed to scale creators professionally without forcing them to carry the entire workload alone. 
-        Our goal is to remove the stress of managing the business side of content creation so creators can focus on what actually matters: producing content, growing their audience, building their personal brand, and maximizing revenue.
+        This is where Quirino Talent Company comes in.
+        We provide the operational structure, marketing systems, and backend support needed to scale creators professionally without forcing them to carry the entire workload alone.
+        Our goal is to remove the stress of managing the business side of content creation so creators can focus on what actually matters:
+        producing content, growing their audience, building their personal brand, and maximizing revenue.
 
-      <br><br>
+        <br><br>
 
-        By combining modern marketing strategy, scalable workflows, data-driven decision making, and dedicated operational support, we help creators turn their online presence into a sustainable long-term business.
-    </p>
+        By combining modern marketing strategy, scalable workflows, data-driven decision making, and dedicated operational support,
+        we help creators turn their online presence into a sustainable long-term business.
+      </p>
 
     </div>
   </section>
-  
+
   <!-- PRICING -->
-<section id="pricing" class="relative z-10 px-6 py-28 fade-section">
+  <section id="pricing" class="relative z-10 px-6 py-28 reveal">
 
-  <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto">
 
-    <div class="text-center mb-20">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
-        Pricing
-      </p>
+      <div class="text-center mb-20">
+        <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
+          Pricing
+        </p>
 
-      <h2 class="text-5xl font-bold mb-6">
-        Flexible Growth Plans
-      </h2>
+        <h2 class="text-5xl font-bold mb-6">
+          Flexible Growth Plans
+        </h2>
 
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        We provide scalable management solutions depending on the level of support,
-        growth strategy, and operational involvement your brand requires.
-      </p>
-    </div>
-
-    <!-- OF PRICING -->
-    <div class="mb-24">
-
-      <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">
-        OnlyFans Management
-      </h3>
-
-      <div class="grid md:grid-cols-3 gap-8">
-
-        <!-- STARTER -->
-        <div class="glass rounded-3xl p-10 relative overflow-hidden">
-
-          <h4 class="text-2xl font-bold mb-2">
-            Starter
-          </h4>
-
-          <p class="text-gray-400 mb-6">
-            For growing creators
-          </p>
-
-          <div class="text-5xl font-black mb-6 text-indigo-400">
-            20%
-          </div>
-
-          <p class="text-gray-400 mb-8">
-            Revenue Share
-          </p>
-
-          <ul class="space-y-4 text-gray-300">
-            <li>• Account Management</li>
-            <li>• Content Scheduling</li>
-            <li>• Messaging Assistance</li>
-            <li>• Basic Analytics</li>
-            <li>• Growth Consultation</li>
-          </ul>
-
-        </div>
-
-        <!-- GROWTH -->
-        <div class="glass rounded-3xl p-10 border border-indigo-500 relative overflow-hidden scale-105">
-
-          <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">
-            Most Popular
-          </div>
-
-          <h4 class="text-2xl font-bold mb-2">
-            Growth
-          </h4>
-
-          <p class="text-gray-400 mb-6">
-            Full scaling support
-          </p>
-
-          <div class="text-5xl font-black mb-6 text-indigo-400">
-            30%
-          </div>
-
-          <p class="text-gray-400 mb-8">
-            Revenue Share
-          </p>
-
-          <ul class="space-y-4 text-gray-300">
-            <li>• Advanced Chatting Systems</li>
-            <li>• Traffic & Promotion</li>
-            <li>• Reddit & X Marketing</li>
-            <li>• Revenue Optimization</li>
-            <li>• Retention Strategies</li>
-            <li>• Content Planning</li>
-            <li>• Backend Operations</li>
-          </ul>
-
-        </div>
-
-        <!-- ELITE -->
-        <div class="glass rounded-3xl p-10 relative overflow-hidden">
-
-          <h4 class="text-2xl font-bold mb-2">
-            Elite
-          </h4>
-
-          <p class="text-gray-400 mb-6">
-            Hands-off scaling
-          </p>
-
-          <div class="text-5xl font-black mb-6 text-indigo-400">
-            40%
-          </div>
-
-          <p class="text-gray-400 mb-8">
-            Revenue Share
-          </p>
-
-          <ul class="space-y-4 text-gray-300">
-            <li>• Dedicated Team Support</li>
-            <li>• Full Backend Management</li>
-            <li>• Payroll Coordination</li>
-            <li>• Aggressive Scaling</li>
-            <li>• Advanced Analytics</li>
-            <li>• Daily Operations Handling</li>
-            <li>• Priority Strategy Support</li>
-          </ul>
-
-        </div>
-
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+          We provide scalable management solutions depending on the level of support,
+          growth strategy, and operational involvement your brand requires.
+        </p>
       </div>
-    </div>
 
-    <!-- SOCIAL MEDIA -->
-    <div>
+      <!-- OF PRICING -->
+      <div class="mb-24">
 
-      <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">
-        Social Media Marketing
-      </h3>
+        <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">
+          OnlyFans Management
+        </h3>
 
-      <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-3 gap-8">
 
-        <!-- STARTER -->
-        <div class="glass rounded-3xl p-10">
+          <div class="glass hover-card rounded-3xl p-10 relative overflow-hidden">
+            <h4 class="text-2xl font-bold mb-2">Starter</h4>
+            <p class="text-gray-400 mb-6">For growing creators</p>
+            <div class="text-5xl font-black mb-6 text-indigo-400">20%</div>
+            <p class="text-gray-400 mb-8">Revenue Share</p>
 
-          <h4 class="text-2xl font-bold mb-2">
-            Starter
-          </h4>
-
-          <p class="text-gray-400 mb-6">
-            Single platform management
-          </p>
-
-          <div class="text-5xl font-black mb-6 text-indigo-400">
-            $300
+            <ul class="space-y-4 text-gray-300">
+              <li>• Account Management</li>
+              <li>• Content Scheduling</li>
+              <li>• Messaging Assistance</li>
+              <li>• Basic Analytics</li>
+              <li>• Growth Consultation</li>
+            </ul>
           </div>
 
-          <p class="text-gray-400 mb-8">
-            per month
-          </p>
+          <div class="glass hover-card rounded-3xl p-10 border border-indigo-500 relative overflow-hidden md:scale-105">
+            <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">
+              Most Popular
+            </div>
 
-          <ul class="space-y-4 text-gray-300">
-            <li>• Posting & Scheduling</li>
-            <li>• Basic Growth Strategy</li>
-            <li>• Analytics Tracking</li>
-            <li>• Profile Optimization</li>
-          </ul>
+            <h4 class="text-2xl font-bold mb-2">Growth</h4>
+            <p class="text-gray-400 mb-6">Full scaling support</p>
+            <div class="text-5xl font-black mb-6 text-indigo-400">30%</div>
+            <p class="text-gray-400 mb-8">Revenue Share</p>
+
+            <ul class="space-y-4 text-gray-300">
+              <li>• Advanced Chatting Systems</li>
+              <li>• Traffic & Promotion</li>
+              <li>• Reddit & X Marketing</li>
+              <li>• Revenue Optimization</li>
+              <li>• Retention Strategies</li>
+              <li>• Content Planning</li>
+              <li>• Backend Operations</li>
+            </ul>
+          </div>
+
+          <div class="glass hover-card rounded-3xl p-10 relative overflow-hidden">
+            <h4 class="text-2xl font-bold mb-2">Elite</h4>
+            <p class="text-gray-400 mb-6">Hands-off scaling</p>
+            <div class="text-5xl font-black mb-6 text-indigo-400">40%</div>
+            <p class="text-gray-400 mb-8">Revenue Share</p>
+
+            <ul class="space-y-4 text-gray-300">
+              <li>• Dedicated Team Support</li>
+              <li>• Full Backend Management</li>
+              <li>• Payroll Coordination</li>
+              <li>• Aggressive Scaling</li>
+              <li>• Advanced Analytics</li>
+              <li>• Daily Operations Handling</li>
+              <li>• Priority Strategy Support</li>
+            </ul>
+          </div>
 
         </div>
+      </div>
 
-        <!-- GROWTH -->
-        <div class="glass rounded-3xl p-10 border border-indigo-500 scale-105">
+      <!-- SOCIAL MEDIA -->
+      <div>
 
-          <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">
-            Recommended
+        <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">
+          Social Media Marketing
+        </h3>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+          <div class="glass hover-card rounded-3xl p-10">
+            <h4 class="text-2xl font-bold mb-2">Starter</h4>
+            <p class="text-gray-400 mb-6">Single platform management</p>
+            <div class="text-5xl font-black mb-6 text-indigo-400">$300</div>
+            <p class="text-gray-400 mb-8">per month</p>
+
+            <ul class="space-y-4 text-gray-300">
+              <li>• Posting & Scheduling</li>
+              <li>• Basic Growth Strategy</li>
+              <li>• Analytics Tracking</li>
+              <li>• Profile Optimization</li>
+            </ul>
           </div>
 
-          <h4 class="text-2xl font-bold mb-2">
-            Growth
-          </h4>
+          <div class="glass hover-card rounded-3xl p-10 border border-indigo-500 relative overflow-hidden md:scale-105">
+            <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">
+              Recommended
+            </div>
 
-          <p class="text-gray-400 mb-6">
-            Multi-platform expansion
-          </p>
+            <h4 class="text-2xl font-bold mb-2">Growth</h4>
+            <p class="text-gray-400 mb-6">Multi-platform expansion</p>
+            <div class="text-5xl font-black mb-6 text-indigo-400">$700</div>
+            <p class="text-gray-400 mb-8">per month</p>
 
-          <div class="text-5xl font-black mb-6 text-indigo-400">
-            $700
+            <ul class="space-y-4 text-gray-300">
+              <li>• Multi-Platform Management</li>
+              <li>• Viral Strategy</li>
+              <li>• Audience Engagement</li>
+              <li>• Advanced Analytics</li>
+              <li>• Content Direction</li>
+            </ul>
           </div>
 
-          <p class="text-gray-400 mb-8">
-            per month
-          </p>
+          <div class="glass hover-card rounded-3xl p-10">
+            <h4 class="text-2xl font-bold mb-2">Scale</h4>
+            <p class="text-gray-400 mb-6">Enterprise-level support</p>
+            <div class="text-5xl font-black mb-6 text-indigo-400">Custom</div>
+            <p class="text-gray-400 mb-8">pricing</p>
 
-          <ul class="space-y-4 text-gray-300">
-            <li>• Multi-Platform Management</li>
-            <li>• Viral Strategy</li>
-            <li>• Audience Engagement</li>
-            <li>• Advanced Analytics</li>
-            <li>• Content Direction</li>
-          </ul>
-
-        </div>
-
-        <!-- SCALE -->
-        <div class="glass rounded-3xl p-10">
-
-          <h4 class="text-2xl font-bold mb-2">
-            Scale
-          </h4>
-
-          <p class="text-gray-400 mb-6">
-            Enterprise-level support
-          </p>
-
-          <div class="text-5xl font-black mb-6 text-indigo-400">
-            Custom
+            <ul class="space-y-4 text-gray-300">
+              <li>• Full Growth Operations</li>
+              <li>• Team Coordination</li>
+              <li>• Large-Scale Campaigns</li>
+              <li>• Advanced Branding</li>
+              <li>• Dedicated Support</li>
+            </ul>
           </div>
-
-          <p class="text-gray-400 mb-8">
-            pricing
-          </p>
-
-          <ul class="space-y-4 text-gray-300">
-            <li>• Full Growth Operations</li>
-            <li>• Team Coordination</li>
-            <li>• Large-Scale Campaigns</li>
-            <li>• Advanced Branding</li>
-            <li>• Dedicated Support</li>
-          </ul>
 
         </div>
 
@@ -486,28 +421,37 @@
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="relative z-10 px-6 py-24 fade-section">
-    <div class="max-w-4xl mx-auto glass rounded-3xl p-12 text-center">
+  <section id="contact" class="relative z-10 px-6 py-24 reveal">
+    <div class="max-w-4xl mx-auto glass hover-card rounded-3xl p-12 text-center">
 
       <h2 class="text-4xl font-bold mb-6">
         Let’s Build Together
       </h2>
 
       <p class="text-gray-300 mb-10 text-lg">
-        Ready to grow your brand or creator business?
+        Ready to grow your brand or creator business? Choose how you want to move forward.
       </p>
 
-      <div class="space-y-4 text-lg">
+      <div class="flex flex-col md:flex-row gap-4 justify-center mb-10">
+        <a href="#"
+           class="bg-indigo-500 hover:bg-indigo-600 transition px-8 py-4 rounded-xl font-semibold">
+          Get Started
+        </a>
 
+        <a href="#"
+           class="glass px-8 py-4 rounded-xl font-semibold hover:border-indigo-400 transition">
+          Discuss More Plans
+        </a>
+      </div>
+
+      <div class="space-y-4 text-lg">
         <p>
           Email:
           <span class="text-indigo-400">
-            contact@quirinotalent.com
+            quirinotalentco@gmail.com
           </span>
         </p>
 
@@ -517,16 +461,98 @@
             @quirinotalent
           </span>
         </p>
-
       </div>
 
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="relative z-10 text-center py-10 text-gray-500">
-    © 2026 Quirino Talent Company. All rights reserved.
+  <footer class="relative z-10 bg-white text-gray-700 px-6 py-20">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+
+        <div>
+          <h2 class="text-2xl font-black mb-6 text-gray-900">
+            Quirino Talent<span class="text-indigo-500">.</span>
+          </h2>
+
+          <p class="text-gray-500 leading-relaxed">
+            Creator growth, OnlyFans management, and social media marketing systems for modern digital brands.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">
+            SERVICES
+          </h3>
+
+          <ul class="space-y-4">
+            <li><a href="#services" class="footer-link">OnlyFans Management</a></li>
+            <li><a href="#services" class="footer-link">Social Media Marketing</a></li>
+            <li><a href="#problem" class="footer-link">Creator Operations</a></li>
+            <li><a href="#pricing" class="footer-link">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">
+            COMPANY
+          </h3>
+
+          <ul class="space-y-4">
+            <li><a href="#about" class="footer-link">About</a></li>
+            <li><a href="#problem" class="footer-link">The Problem</a></li>
+            <li><a href="#contact" class="footer-link">Contact</a></li>
+            <li><a href="#contact" class="footer-link">Get Started</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">
+            LEGAL
+          </h3>
+
+          <ul class="space-y-4">
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+            <li><a href="#" class="footer-link">Creator Agreement</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between gap-4">
+        <p class="text-gray-500">
+          © 2026 Quirino Talent Company. All rights reserved.
+        </p>
+
+        <p class="text-gray-500">
+          Business inquiries: quirinotalentco@gmail.com
+        </p>
+      </div>
+
+    </div>
   </footer>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function revealOnScroll() {
+      revealElements.forEach((element) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const revealPoint = 120;
+
+        if (elementTop < windowHeight - revealPoint) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
 
 </body>
 </html>

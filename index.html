@@ -87,6 +87,36 @@
     .footer-link:hover {
       color: #818cf8;
     }
+    .testimonial-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      animation: slideReviews 38s linear infinite;
+    }
+
+    .testimonial-slider {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+
+    .testimonial-slider:hover .testimonial-track {
+      animation-play-state: paused;
+    }
+
+    .review-card {
+      width: 360px;
+      flex-shrink: 0;
+    }
+
+    @keyframes slideReviews {
+    from {
+    transform: translateX(0);
+    }
+    to {
+    transform: translateX(-50%);
+    }
+  }
   </style>
 </head>
 
@@ -253,47 +283,100 @@
       </p>
 
       <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Trusted By Growing Creators
+        What Creators Say
       </h2>
 
       <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Creators work with Quirino Talent Company because they want structure, consistency,
-        and a team that helps them scale without handling every backend task alone.
+        Sample creator feedback showing the type of experience Quirino Talent Company is built to deliver.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="testimonial-slider">
+      <div class="testimonial-track">
 
-      <div class="glass hover-card rounded-3xl p-8">
-        <div class="text-indigo-400 text-3xl mb-4">★★★★★</div>
-        <p class="text-gray-300 leading-relaxed mb-6">
-          “Quirino Talent helped me organize everything behind the scenes. I finally had a real system for content,
-          scheduling, messaging, and growth instead of doing everything manually.”
-        </p>
-        <h3 class="font-bold text-white">Mia R.</h3>
-        <p class="text-gray-500">Lifestyle Creator</p>
+        <!-- first set -->
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+          <p class="text-gray-300 mb-6">“They helped me stop feeling overwhelmed and gave me a real system for content, messages, and growth.”</p>
+          <h3 class="font-bold">Mia R.</h3>
+          <p class="text-gray-500">Lifestyle Creator</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
+          <p class="text-gray-300 mb-6">“The operations support helped a lot. I wish I started with better content direction earlier, but the systems were strong.”</p>
+          <h3 class="font-bold">Alyssa V.</h3>
+          <p class="text-gray-500">Digital Creator</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+          <p class="text-gray-300 mb-6">“I could finally focus on creating while the backend, scheduling, and analytics were handled properly.”</p>
+          <h3 class="font-bold">Sofia L.</h3>
+          <p class="text-gray-500">Online Brand Partner</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/21.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★☆☆</div>
+          <p class="text-gray-300 mb-6">“Good support and structure. It took some time to adjust to the workflow, but it made things more organized.”</p>
+          <h3 class="font-bold">Nina C.</h3>
+          <p class="text-gray-500">Content Creator</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/33.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+          <p class="text-gray-300 mb-6">“The team made my daily workload lighter. I had more time to shoot, plan, and actually enjoy creating again.”</p>
+          <h3 class="font-bold">Camille D.</h3>
+          <p class="text-gray-500">Creator Partner</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/55.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
+          <p class="text-gray-300 mb-6">“Their social media planning was clean and professional. The biggest value was consistency and accountability.”</p>
+          <h3 class="font-bold">Erika M.</h3>
+          <p class="text-gray-500">Social Creator</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/72.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+          <p class="text-gray-300 mb-6">“They helped me understand what was working, what was not, and where my content should go next.”</p>
+          <h3 class="font-bold">Bella T.</h3>
+          <p class="text-gray-500">Brand Creator</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/90.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★☆☆</div>
+          <p class="text-gray-300 mb-6">“Solid management and reporting. I wanted faster results, but the backend support definitely helped me stay consistent.”</p>
+          <h3 class="font-bold">Jasmine K.</h3>
+          <p class="text-gray-500">Independent Creator</p>
+        </div>
+
+        <!-- duplicate set for seamless loop -->
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+          <p class="text-gray-300 mb-6">“They helped me stop feeling overwhelmed and gave me a real system for content, messages, and growth.”</p>
+          <h3 class="font-bold">Mia R.</h3>
+          <p class="text-gray-500">Lifestyle Creator</p>
+        </div>
+
+        <div class="glass hover-card review-card rounded-3xl p-8">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mb-5" />
+          <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
+          <p class="text-gray-300 mb-6">“The operations support helped a lot. I wish I started with better content direction earlier, but the systems were strong.”</p>
+          <h3 class="font-bold">Alyssa V.</h3>
+          <p class="text-gray-500">Digital Creator</p>
+        </div>
+
       </div>
-
-      <div class="glass hover-card rounded-3xl p-8 border border-indigo-500">
-        <div class="text-indigo-400 text-3xl mb-4">★★★★★</div>
-        <p class="text-gray-300 leading-relaxed mb-6">
-          “The biggest difference was not having to think about operations every day. Their team handled the structure,
-          reporting, and planning so I could focus on producing better content.”
-        </p>
-        <h3 class="font-bold text-white">Alyssa V.</h3>
-        <p class="text-gray-500">Digital Creator</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <div class="text-indigo-400 text-3xl mb-4">★★★★★</div>
-        <p class="text-gray-300 leading-relaxed mb-6">
-          “They made the business side feel simple. From social media direction to backend support,
-          Quirino Talent gave me more time and helped me understand what was actually working.”
-        </p>
-        <h3 class="font-bold text-white">Sofia L.</h3>
-        <p class="text-gray-500">Online Brand Partner</p>
-      </div>
-
     </div>
 
   </div>

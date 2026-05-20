@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Quirino Talent Company</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: #050816;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(99,102,241,0.22);
+      filter: blur(120px);
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body class="text-white font-sans min-h-screen">
+
+  <div class="glow top-0 left-0"></div>
+  <div class="glow bottom-0 right-0"></div>
+
+  <section class="relative z-10 px-6 py-24">
+
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-14 text-center">
+
+      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
+        Contact
+      </p>
+
+      <h1 class="text-5xl font-bold mb-8">
+        Let’s Discuss Your Plans
+      </h1>
+
+      <p class="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto mb-14">
+        Have questions about pricing, operations, scaling,
+        or how Quirino Talent Company works?
+        Reach out directly and our team will get back to you.
+      </p>
+
+      <div class="space-y-8">
+
+        <div>
+          <p class="text-gray-400 mb-2">Business Email</p>
+
+          <a href="mailto:quirinotalentco@gmail.com"
+             class="text-3xl font-bold text-indigo-400 hover:text-indigo-300 transition">
+            quirinotalentco@gmail.com
+          </a>
+        </div>
+
+        <div>
+          <p class="text-gray-400 mb-2">Telegram</p>
+
+          <a href="https://t.me/quirinotalent"
+             class="text-3xl font-bold text-indigo-400 hover:text-indigo-300 transition">
+            @quirinotalent
+          </a>
+        </div>
+
+      </div>
+
+      <div class="mt-16">
+        <a href="/"
+           class="glass px-8 py-4 rounded-xl font-semibold hover:border-indigo-400 transition">
+          Return Home
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+</html>

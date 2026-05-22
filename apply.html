@@ -215,9 +215,12 @@
         }
 
         renderCalendar();
+        if (selectedDate) {
+          renderTimeSlots(selectedDate);
+        }
+
       } catch (error) {
         console.error("Could not load booked slots:", error);
-        renderCalendar();
       }
     }
 
@@ -429,6 +432,7 @@
       }
     });
 
+    renderCalendar();
     loadBookedSlots();
   </script>
 

@@ -7,213 +7,353 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    html { scroll-behavior: smooth; }
     body { background:#050816; overflow-x:hidden; }
     .glass { background:rgba(255,255,255,.05); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.08); }
     .selected { background:#6366f1 !important; border-color:#818cf8 !important; color:white !important; }
-    input, select, textarea {
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-    }
-    input:focus, select:focus, textarea:focus {
-      outline:none;
-      border-color:#818cf8;
-    }
+    .disabled { opacity:.35; cursor:not-allowed; background:rgba(255,255,255,.03) !important; }
+    .available { cursor:pointer; }
+    .available:hover { border-color:#818cf8; transform:translateY(-2px); }
+    input, select, textarea { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:#818cf8; }
+    .footer-link:hover { color:#818cf8; }
   </style>
 </head>
 
 <body class="text-white font-sans min-h-screen">
 
-<section class="px-6 py-16">
-  <div class="max-w-6xl mx-auto">
+  <section class="px-6 py-16">
+    <div class="max-w-7xl mx-auto">
 
-    <div class="text-center mb-12">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
-        Book a Call
-      </p>
-
-      <h1 class="text-5xl font-bold mb-6">
-        Schedule a 1-Hour Discovery Call
-      </h1>
-
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-        Choose an available date and time, then send your booking request to Quirino Talent Company.
-      </p>
-    </div>
-
-    <div class="grid lg:grid-cols-2 gap-8">
-
-      <div class="glass rounded-3xl p-8">
-        <h2 class="text-2xl font-bold mb-6">1. Choose a Date</h2>
-        <div id="dateOptions" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
-
-        <h2 class="text-2xl font-bold mt-10 mb-6">2. Choose a Time Slot</h2>
-        <div id="timeOptions" class="grid grid-cols-2 gap-4"></div>
+      <div class="text-center mb-12">
+        <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Book a Call</p>
+        <h1 class="text-5xl font-bold mb-6">Schedule a 1-Hour Discovery Call</h1>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+          Choose an available date and time, then send your booking request to Quirino Talent Company.
+        </p>
       </div>
 
-      <div class="glass rounded-3xl p-8">
-        <h2 class="text-2xl font-bold mb-6">3. Your Details</h2>
+      <div class="glass rounded-3xl p-8 md:p-12">
 
-        <form id="bookingForm" class="space-y-5">
+        <div class="grid lg:grid-cols-2 gap-10">
 
-          <input id="name" type="text" placeholder="Full Name" required
-            class="w-full p-4 rounded-xl text-white">
+          <!-- CALENDAR -->
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <button id="prevMonth" class="glass px-4 py-2 rounded-xl hover:border-indigo-400 transition">←</button>
+              <h2 id="calendarTitle" class="text-2xl font-bold"></h2>
+              <button id="nextMonth" class="glass px-4 py-2 rounded-xl hover:border-indigo-400 transition">→</button>
+            </div>
 
-          <input id="email" type="email" placeholder="Email Address" required
-            class="w-full p-4 rounded-xl text-white">
+            <div class="grid grid-cols-7 gap-2 text-center text-gray-400 mb-3">
+              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
 
-          <select id="service" required class="w-full p-4 rounded-xl text-white">
-            <option class="bg-[#050816]">OnlyFans Management</option>
-            <option class="bg-[#050816]">Social Media Marketing</option>
-            <option class="bg-[#050816]">Both Services</option>
-            <option class="bg-[#050816]">Not Sure Yet</option>
-          </select>
+            <div id="calendarGrid" class="grid grid-cols-7 gap-2"></div>
 
-          <select id="contactMethod" required class="w-full p-4 rounded-xl text-white">
-            <option class="bg-[#050816]">Email</option>
-            <option class="bg-[#050816]">Telegram</option>
-            <option class="bg-[#050816]">Discord</option>
-            <option class="bg-[#050816]">WhatsApp</option>
-          </select>
-
-          <input id="contactInfo" type="text" placeholder="Telegram / Discord / WhatsApp username or number"
-            class="w-full p-4 rounded-xl text-white">
-
-          <textarea id="message" rows="5" placeholder="Tell us what you want to discuss..."
-            class="w-full p-4 rounded-xl text-white"></textarea>
-
-          <div class="glass rounded-2xl p-5">
-            <p class="text-gray-400 mb-2">Selected Appointment</p>
-            <p id="summary" class="text-indigo-400 font-bold">
-              No date or time selected yet.
-            </p>
+            <div class="mt-8">
+              <label class="block mb-3 text-gray-300 font-semibold">Available Time Slots</label>
+              <select id="timeSlot" class="w-full p-4 rounded-xl text-white">
+                <option class="bg-[#050816]" value="">Select a date first</option>
+              </select>
+            </div>
           </div>
 
-          <button type="submit"
-            class="w-full bg-indigo-500 hover:bg-indigo-600 transition py-5 rounded-xl font-bold text-lg">
-            Send Booking Request
-          </button>
+          <!-- DETAILS -->
+          <div>
+            <h2 class="text-2xl font-bold mb-6">Your Details</h2>
 
-        </form>
+            <form id="bookingForm" class="space-y-5">
+              <input id="name" type="text" placeholder="Full Name" required class="w-full p-4 rounded-xl text-white">
+              <input id="email" type="email" placeholder="Email Address" required class="w-full p-4 rounded-xl text-white">
 
-        <div class="mt-8 text-center">
-          <a href="index.html" class="text-indigo-400 hover:text-indigo-300">
-            Return Home
-          </a>
+              <select id="service" required class="w-full p-4 rounded-xl text-white">
+                <option class="bg-[#050816]">OnlyFans Management</option>
+                <option class="bg-[#050816]">Social Media Marketing</option>
+                <option class="bg-[#050816]">Both Services</option>
+                <option class="bg-[#050816]">Not Sure Yet</option>
+              </select>
+
+              <select id="contactMethod" required class="w-full p-4 rounded-xl text-white">
+                <option class="bg-[#050816]" value="email">Email</option>
+                <option class="bg-[#050816]" value="telegram">Telegram</option>
+                <option class="bg-[#050816]" value="discord">Discord</option>
+                <option class="bg-[#050816]" value="whatsapp">WhatsApp</option>
+              </select>
+
+              <div id="contactField">
+                <input id="contactInfo" type="email" placeholder="Insert email here" class="w-full p-4 rounded-xl text-white">
+              </div>
+
+              <textarea id="message" rows="5" placeholder="Tell us what you want to discuss..." class="w-full p-4 rounded-xl text-white"></textarea>
+
+              <div class="glass rounded-2xl p-5">
+                <p class="text-gray-400 mb-2">Selected Appointment</p>
+                <p id="summary" class="text-indigo-400 font-bold">No date or time selected yet.</p>
+              </div>
+
+              <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 transition py-5 rounded-xl font-bold text-lg">
+                Send Booking Request
+              </button>
+            </form>
+
+            <div class="mt-8 text-center">
+              <a href="index.html" class="text-indigo-400 hover:text-indigo-300">Return Home</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 bg-white text-gray-700 px-6 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+        <div>
+          <h2 class="text-2xl font-black mb-6 text-gray-900">
+            Quirino Talent<span class="text-indigo-500">.</span>
+          </h2>
+          <p class="text-gray-500 leading-relaxed">
+            Creator growth, OnlyFans management, and social media marketing systems for modern digital brands.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">SERVICES</h3>
+          <ul class="space-y-4">
+            <li><a href="index.html#services" class="footer-link">OnlyFans Management</a></li>
+            <li><a href="index.html#services" class="footer-link">Social Media Marketing</a></li>
+            <li><a href="index.html#pricing" class="footer-link">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">COMPANY</h3>
+          <ul class="space-y-4">
+            <li><a href="index.html#problem" class="footer-link">Home</a></li>
+            <li><a href="index.html#clients" class="footer-link">Client Reviews</a></li>
+            <li><a href="apply.html" class="footer-link">Book a Call</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">LEGAL</h3>
+          <ul class="space-y-4">
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+            <li><a href="#" class="footer-link">Creator Agreement</a></li>
+          </ul>
         </div>
       </div>
 
+      <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between gap-4">
+        <p class="text-gray-500">© 2026 Quirino Talent Company. All rights reserved.</p>
+        <p class="text-gray-500">Business inquiries: quirinotalentco@gmail.com</p>
+      </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<script>
-  const dateOptions = document.getElementById("dateOptions");
-  const timeOptions = document.getElementById("timeOptions");
-  const summary = document.getElementById("summary");
+  <script>
+    const calendarGrid = document.getElementById("calendarGrid");
+    const calendarTitle = document.getElementById("calendarTitle");
+    const timeSlot = document.getElementById("timeSlot");
+    const summary = document.getElementById("summary");
+    const contactMethod = document.getElementById("contactMethod");
+    const contactField = document.getElementById("contactField");
 
-  let selectedDate = "";
-  let selectedTime = "";
+    let currentDate = new Date();
+    let selectedDate = "";
+    let selectedTime = "";
 
-  const timeSlots = [
-    "9:00 AM - 10:00 AM",
-    "10:00 AM - 11:00 AM",
-    "11:00 AM - 12:00 PM",
-    "1:00 PM - 2:00 PM",
-    "2:00 PM - 3:00 PM",
-    "3:00 PM - 4:00 PM",
-    "4:00 PM - 5:00 PM"
-  ];
+    const bookedSlots = {
+      "2026-05-25": ["10:00 AM - 11:00 AM", "2:00 PM - 3:00 PM"],
+      "2026-05-27": ["9:00 AM - 10:00 AM"],
+      "2026-06-01": ["1:00 PM - 2:00 PM", "3:00 PM - 4:00 PM"]
+    };
 
-  function updateSummary() {
-    if (selectedDate && selectedTime) {
-      summary.textContent = selectedDate + " at " + selectedTime;
-    } else {
-      summary.textContent = "No date or time selected yet.";
+    const availableSlots = [
+      "9:00 AM - 10:00 AM",
+      "10:00 AM - 11:00 AM",
+      "11:00 AM - 12:00 PM",
+      "1:00 PM - 2:00 PM",
+      "2:00 PM - 3:00 PM",
+      "3:00 PM - 4:00 PM",
+      "4:00 PM - 5:00 PM"
+    ];
+
+    function formatDateKey(date) {
+      return date.toISOString().split("T")[0];
     }
-  }
 
-  function createDates() {
-    const today = new Date();
+    function renderCalendar() {
+      calendarGrid.innerHTML = "";
 
-    for (let i = 1; i <= 14; i++) {
-      const date = new Date();
-      date.setDate(today.getDate() + i);
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
 
-      const label = date.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric"
+      calendarTitle.textContent = currentDate.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric"
       });
 
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = label;
-      button.className = "glass rounded-xl p-4 hover:border-indigo-400 transition";
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const today = new Date();
+      today.setHours(0,0,0,0);
 
-      button.onclick = () => {
-        document.querySelectorAll("#dateOptions button").forEach(btn => btn.classList.remove("selected"));
-        button.classList.add("selected");
-        selectedDate = label;
-        updateSummary();
-      };
+      for (let i = 0; i < firstDay; i++) {
+        const blank = document.createElement("div");
+        calendarGrid.appendChild(blank);
+      }
 
-      dateOptions.appendChild(button);
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const key = formatDateKey(date);
+        const isPast = date < today;
+        const booked = bookedSlots[key] || [];
+        const fullyBooked = booked.length >= availableSlots.length;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = day;
+        button.className = "rounded-xl p-4 border border-white/10 transition";
+
+        if (isPast || fullyBooked) {
+          button.classList.add("disabled");
+          button.disabled = true;
+        } else {
+          button.classList.add("available", "glass");
+          button.onclick = () => selectDate(date, button);
+        }
+
+        calendarGrid.appendChild(button);
+      }
     }
-  }
 
-  function createTimes() {
-    timeSlots.forEach(slot => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = slot;
-      button.className = "glass rounded-xl p-4 hover:border-indigo-400 transition";
+    function selectDate(date, button) {
+      document.querySelectorAll("#calendarGrid button").forEach(btn => btn.classList.remove("selected"));
+      button.classList.add("selected");
 
-      button.onclick = () => {
-        document.querySelectorAll("#timeOptions button").forEach(btn => btn.classList.remove("selected"));
-        button.classList.add("selected");
-        selectedTime = slot;
-        updateSummary();
-      };
+      selectedDate = formatDateKey(date);
+      selectedTime = "";
+      renderTimeSlots(selectedDate);
+      updateSummary();
+    }
 
-      timeOptions.appendChild(button);
+    function renderTimeSlots(dateKey) {
+      timeSlot.innerHTML = "";
+
+      const booked = bookedSlots[dateKey] || [];
+      const available = availableSlots.filter(slot => !booked.includes(slot));
+
+      if (available.length === 0) {
+        timeSlot.innerHTML = '<option class="bg-[#050816]" value="">Fully booked</option>';
+        return;
+      }
+
+      timeSlot.innerHTML = '<option class="bg-[#050816]" value="">Select available time</option>';
+
+      available.forEach(slot => {
+        const option = document.createElement("option");
+        option.value = slot;
+        option.textContent = slot;
+        option.className = "bg-[#050816]";
+        timeSlot.appendChild(option);
+      });
+    }
+
+    timeSlot.addEventListener("change", () => {
+      selectedTime = timeSlot.value;
+      updateSummary();
     });
-  }
 
-  document.getElementById("bookingForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    if (!selectedDate || !selectedTime) {
-      alert("Please select a date and time slot.");
-      return;
+    function updateSummary() {
+      if (selectedDate && selectedTime) {
+        summary.textContent = selectedDate + " at " + selectedTime;
+      } else if (selectedDate) {
+        summary.textContent = selectedDate + " selected. Choose a time slot.";
+      } else {
+        summary.textContent = "No date or time selected yet.";
+      }
     }
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const service = document.getElementById("service").value;
-    const contactMethod = document.getElementById("contactMethod").value;
-    const contactInfo = document.getElementById("contactInfo").value;
-    const message = document.getElementById("message").value;
+    document.getElementById("prevMonth").onclick = () => {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar();
+    };
 
-    const subject = encodeURIComponent("New Booking Request - Quirino Talent Company");
+    document.getElementById("nextMonth").onclick = () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar();
+    };
 
-    const body = encodeURIComponent(
-      "New booking request:\n\n" +
-      "Name: " + name + "\n" +
-      "Email: " + email + "\n" +
-      "Service: " + service + "\n" +
-      "Preferred Contact Method: " + contactMethod + "\n" +
-      "Contact Info: " + contactInfo + "\n" +
-      "Date: " + selectedDate + "\n" +
-      "Time: " + selectedTime + "\n\n" +
-      "Message:\n" + message
-    );
+    contactMethod.addEventListener("change", () => {
+      const method = contactMethod.value;
 
-    window.location.href = "mailto:quirinotalentco@gmail.com?subject=" + subject + "&body=" + body;
-  });
+      if (method === "email") {
+        contactField.innerHTML = '<input id="contactInfo" type="email" placeholder="Insert email here" class="w-full p-4 rounded-xl text-white">';
+      }
 
-  createDates();
-  createTimes();
-</script>
+      if (method === "telegram") {
+        contactField.innerHTML = '<input id="contactInfo" type="text" placeholder="Insert Telegram handle here, example: @username" class="w-full p-4 rounded-xl text-white">';
+      }
+
+      if (method === "discord") {
+        contactField.innerHTML = '<input id="contactInfo" type="text" placeholder="Insert Discord username here" class="w-full p-4 rounded-xl text-white">';
+      }
+
+      if (method === "whatsapp") {
+        contactField.innerHTML = `
+          <div class="grid grid-cols-3 gap-3">
+            <select id="countryCode" class="p-4 rounded-xl text-white">
+              <option class="bg-[#050816]" value="+63">PH +63</option>
+              <option class="bg-[#050816]" value="+1">US +1</option>
+              <option class="bg-[#050816]" value="+44">UK +44</option>
+              <option class="bg-[#050816]" value="+61">AU +61</option>
+              <option class="bg-[#050816]" value="+971">UAE +971</option>
+            </select>
+            <input id="contactInfo" type="text" placeholder="WhatsApp number" class="col-span-2 p-4 rounded-xl text-white">
+          </div>
+        `;
+      }
+    });
+
+    document.getElementById("bookingForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      if (!selectedDate || !selectedTime) {
+        alert("Please select a date and available time slot.");
+        return;
+      }
+
+      let contactInfo = document.getElementById("contactInfo").value;
+      const countryCode = document.getElementById("countryCode");
+
+      if (countryCode) {
+        contactInfo = countryCode.value + " " + contactInfo;
+      }
+
+      const subject = encodeURIComponent("New Booking Request - Quirino Talent Company");
+
+      const body = encodeURIComponent(
+        "New booking request:\n\n" +
+        "Name: " + document.getElementById("name").value + "\n" +
+        "Email: " + document.getElementById("email").value + "\n" +
+        "Service: " + document.getElementById("service").value + "\n" +
+        "Preferred Contact Method: " + contactMethod.value + "\n" +
+        "Contact Info: " + contactInfo + "\n" +
+        "Date: " + selectedDate + "\n" +
+        "Time: " + selectedTime + "\n\n" +
+        "Message:\n" + document.getElementById("message").value
+      );
+
+      window.location.href = "mailto:quirinotalentco@gmail.com?subject=" + subject + "&body=" + body;
+    });
+
+    renderCalendar();
+  </script>
 
 </body>
 </html>

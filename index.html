@@ -8,10 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       background: #050816;
       overflow-x: hidden;
@@ -27,33 +24,37 @@
       text-shadow: 0 0 25px rgba(139, 92, 246, 0.35);
     }
 
-    .glow {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: rgba(99,102,241,0.25);
-      filter: blur(120px);
-      z-index: 0;
-    }
-
     .glass {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.055);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.09);
     }
 
     .hero-bg {
       background:
-        linear-gradient(rgba(5,8,22,0.75), rgba(5,8,22,0.92)),
+        radial-gradient(circle at 20% 20%, rgba(99,102,241,0.23), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(236,72,153,0.18), transparent 30%),
+        linear-gradient(rgba(5,8,22,0.72), rgba(5,8,22,0.96)),
         url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80");
       background-size: cover;
       background-position: center;
     }
 
+    .glow {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 9999px;
+      background: rgba(99,102,241,0.18);
+      filter: blur(130px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .reveal {
       opacity: 0;
-      transform: translateY(45px);
-      transition: all 0.9s ease;
+      transform: translateY(34px);
+      transition: all 0.8s ease;
     }
 
     .reveal.active {
@@ -62,17 +63,17 @@
     }
 
     .hover-card {
-      transition: all 0.35s ease;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     }
 
     .hover-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      border-color: rgba(129,140,248,0.75);
-      box-shadow: 0 25px 70px rgba(99,102,241,0.22);
+      transform: translateY(-8px);
+      border-color: rgba(129,140,248,0.65);
+      box-shadow: 0 24px 60px rgba(99,102,241,0.18);
     }
 
     .nav-link {
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
 
     .nav-link:hover {
@@ -80,18 +81,12 @@
       transform: translateY(-2px);
     }
 
-    .footer-link {
-      transition: color 0.25s ease;
-    }
-
-    .footer-link:hover {
+    .section-kicker {
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
       color: #818cf8;
-    }
-    .testimonial-track {
-      display: flex;
-      gap: 24px;
-      width: max-content;
-      animation: slideReviews 38s linear infinite;
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
     .testimonial-slider {
@@ -100,23 +95,36 @@
       -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     }
 
+    .testimonial-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+      animation: slideReviews 42s linear infinite;
+    }
+
     .testimonial-slider:hover .testimonial-track {
       animation-play-state: paused;
     }
 
     .review-card {
-      width: 360px;
+      width: 340px;
       flex-shrink: 0;
     }
 
     @keyframes slideReviews {
-    from {
-    transform: translateX(0);
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
     }
-    to {
-    transform: translateX(-50%);
+
+    .footer-link { transition: color 0.25s ease; }
+    .footer-link:hover { color: #6366f1; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 3.25rem !important; line-height: 1.05 !important; }
+      h2 { font-size: 2.35rem !important; line-height: 1.15 !important; }
+      .review-card { width: 300px; }
+      .hover-card:hover { transform: none; }
     }
-  }
   </style>
 </head>
 
@@ -126,866 +134,472 @@
   <div class="glow bottom-0 right-0"></div>
 
   <!-- NAVBAR -->
-  <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 bg-[#050816]/70 backdrop-blur-xl border-b border-white/5">
-    <h1 class="text-3xl md:text-4xl font-black logo-text">
-      Quirino Talent Co.
-    </h1>
+  <nav class="fixed top-0 left-0 w-full z-50 px-6 md:px-8 py-5 bg-[#050816]/75 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="#home" class="text-2xl md:text-4xl font-black logo-text">
+        Quirino Talent Co.
+      </a>
 
-    <div class="space-x-6 hidden md:flex text-lg font-semibold">
-      <a href="#problem" class="nav-link">Home</a>
-      <a href="#services" class="nav-link">Services</a>
-      <a href="#clients" class="nav-link">Clients</a>
-      <a href="#pricing" class="nav-link">Pricing</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <div class="space-x-7 hidden md:flex text-base font-semibold items-center">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#why-us" class="nav-link">Why Us</a>
+        <a href="#clients" class="nav-link">Reviews</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="apply.html" class="bg-indigo-500 px-5 py-2.5 rounded-xl hover:bg-indigo-600 transition">
+          Book Call
+        </a>
+      </div>
+
+      <a href="apply.html" class="md:hidden bg-indigo-500 px-4 py-2 rounded-xl font-semibold">
+        Book
+      </a>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="relative z-10 min-h-screen flex items-center justify-center px-6 hero-bg pt-28">
+  <section id="home" class="relative z-10 min-h-screen flex items-center justify-center px-6 hero-bg pt-32">
     <div class="max-w-6xl text-center reveal active">
 
-      <p class="uppercase tracking-[0.35em] text-indigo-300 mb-6">
+      <p class="section-kicker mb-7">
         Creator Growth Agency
       </p>
 
-      <h1 class="text-5xl md:text-8xl font-extrabold leading-tight mb-8">
-        Building Digital Influence
-        <span class="text-indigo-400">At Scale</span>
+      <h1 class="text-6xl md:text-8xl font-black leading-[0.95] mb-8">
+        Scale Your Creator Business
+        <span class="text-indigo-400 block mt-2">Without Managing Everything Yourself.</span>
       </h1>
 
-      <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-        Quirino Talent Company helps creators and brands grow through professional OnlyFans management,
-        social media marketing, analytics, account operations, and scalable growth systems.
+      <p class="text-gray-300 text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed">
+        Quirino Talent Company helps creators manage operations, content systems,
+        scheduling, monetization, analytics, and backend workflows so they can focus on content and revenue.
       </p>
 
-      <div class="flex flex-col md:flex-row gap-4 justify-center">
-        <a href="#contact"
-           class="bg-indigo-500 hover:bg-indigo-600 transition px-8 py-4 rounded-xl font-semibold">
-          Work With Us
+      <div class="flex flex-col sm:flex-row gap-5 justify-center">
+        <a href="apply.html"
+           class="bg-indigo-500 hover:bg-indigo-600 hover:scale-105 transition duration-300 px-10 py-5 rounded-2xl text-lg font-bold shadow-2xl shadow-indigo-500/30">
+          Book Strategy Call
         </a>
 
-        <a href="#services"
-           class="glass px-8 py-4 rounded-xl font-semibold hover:border-indigo-400 transition">
-          Explore Services
+        <a href="#pricing"
+           class="glass px-10 py-5 rounded-2xl text-lg font-semibold hover:border-indigo-400 transition">
+          View Pricing
         </a>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto text-left">
+        <div class="glass rounded-2xl p-5">
+          <p class="text-indigo-400 font-black text-2xl">Systems</p>
+          <p class="text-gray-400 text-sm">Backend operations</p>
+        </div>
+        <div class="glass rounded-2xl p-5">
+          <p class="text-indigo-400 font-black text-2xl">Growth</p>
+          <p class="text-gray-400 text-sm">Platform strategy</p>
+        </div>
+        <div class="glass rounded-2xl p-5">
+          <p class="text-indigo-400 font-black text-2xl">Content</p>
+          <p class="text-gray-400 text-sm">Workflow planning</p>
+        </div>
+        <div class="glass rounded-2xl p-5">
+          <p class="text-indigo-400 font-black text-2xl">Analytics</p>
+          <p class="text-gray-400 text-sm">Performance review</p>
+        </div>
       </div>
 
     </div>
   </section>
 
-  <!-- THE PROBLEM -->
-  <section id="problem" class="relative z-10 px-6 py-28 reveal">
+  <!-- PROBLEM -->
+  <section id="problem" class="relative z-10 px-6 py-24 reveal">
     <div class="max-w-6xl mx-auto text-center">
-
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-5">
-        The Problem
-      </p>
+      <p class="section-kicker mb-5">The Problem</p>
 
       <h2 class="text-4xl md:text-5xl font-bold mb-8">
-        Why Quirino Talent
+        Creators Should Not Have To Run Everything Alone.
       </h2>
 
       <p class="text-gray-300 text-lg leading-relaxed max-w-4xl mx-auto mb-14">
-        Most creators do not struggle because they lack talent. They struggle because running a creator business
-        means managing accounts, content calendars, analytics, people, payroll, fan communication, promotions,
-        and daily operations all at once.
+        Most creators do not fail from lack of talent. They get buried in scheduling, account management,
+        fan communication, analytics, team coordination, payroll, and daily operations.
       </p>
 
       <div class="grid md:grid-cols-3 gap-6 text-left">
-
         <div class="glass hover-card rounded-3xl p-8">
           <h3 class="text-xl font-bold text-indigo-400 mb-4">Too Much To Manage</h3>
           <p class="text-gray-300 leading-relaxed">
-            Creators are expected to post content, answer messages, track performance, manage platforms,
-            and stay consistent every single day.
+            Posting, planning, replying, tracking performance, and keeping accounts organized becomes a full-time operation.
           </p>
         </div>
 
         <div class="glass hover-card rounded-3xl p-8">
-          <h3 class="text-xl font-bold text-indigo-400 mb-4">Operations Get Messy</h3>
+          <h3 class="text-xl font-bold text-indigo-400 mb-4">Growth Gets Messy</h3>
           <p class="text-gray-300 leading-relaxed">
-            Account handling, analytics, scheduling, team management, payroll, and daily execution can quickly
-            become overwhelming without a proper system.
+            Without structure, content flow, social strategy, analytics, and monetization systems become inconsistent.
           </p>
         </div>
 
         <div class="glass hover-card rounded-3xl p-8">
           <h3 class="text-xl font-bold text-indigo-400 mb-4">We Handle The Backend</h3>
           <p class="text-gray-300 leading-relaxed">
-            Quirino Talent Company keeps creators hands-off with operations so they can focus on creating content,
-            growing their brand, and making money.
+            Our goal is to remove operational pressure so creators can focus on content, audience, and revenue.
           </p>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
   <section id="services" class="relative z-10 px-6 py-24 reveal">
-    <div class="max-w-6xl mx-auto">
-
+    <div class="max-w-7xl mx-auto">
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold mb-4">
-          Our Services
-        </h2>
-
-        <p class="text-gray-400 text-lg">
-          Growth systems built for modern creators and online brands.
+        <p class="section-kicker mb-4">Services</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Growth Systems For Modern Creators</h2>
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+          We combine management, marketing, operations, and reporting into one streamlined creator support system.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-
         <div class="glass hover-card rounded-3xl p-10">
-          <h3 class="text-2xl font-bold mb-6 text-indigo-400">
-            OnlyFans Management
-          </h3>
-
-          <ul class="space-y-4 text-gray-300">
-            <li>• Creator Growth Strategy</li>
-            <li>• Fan Messaging Systems</li>
-            <li>• Revenue Optimization</li>
-            <li>• Content Planning</li>
-            <li>• Analytics & Scaling</li>
-            <li>• Team Operations</li>
-            <li>• Payroll & Workflow Support</li>
-          </ul>
+          <h3 class="text-3xl font-bold mb-6 text-indigo-400">OnlyFans Management</h3>
+          <p class="text-gray-300 mb-8 leading-relaxed">
+            Account operations, monetization strategy, content planning, fan communication workflows, and revenue support.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 text-gray-300">
+            <p>• Creator growth strategy</p>
+            <p>• Fan messaging systems</p>
+            <p>• PPV and retention planning</p>
+            <p>• Content scheduling</p>
+            <p>• Analytics review</p>
+            <p>• Backend operations</p>
+          </div>
         </div>
 
         <div class="glass hover-card rounded-3xl p-10">
-          <h3 class="text-2xl font-bold mb-6 text-indigo-400">
-            Social Media Marketing
-          </h3>
+          <h3 class="text-3xl font-bold mb-6 text-indigo-400">Social Media Marketing</h3>
+          <p class="text-gray-300 mb-8 leading-relaxed">
+            Multi-platform growth direction for creators who need consistent visibility and audience development.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-4 text-gray-300">
+            <p>• TikTok growth</p>
+            <p>• Instagram management</p>
+            <p>• X / Twitter marketing</p>
+            <p>• Reddit-style traffic</p>
+            <p>• Viral content direction</p>
+            <p>• Brand positioning</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <ul class="space-y-4 text-gray-300">
-            <li>• TikTok Growth</li>
-            <li>• Instagram Management</li>
-            <li>• Facebook Page Strategy</li>
-            <li>• X / Twitter Marketing</li>
-            <li>• Viral Content Strategy</li>
-            <li>• Audience Engagement</li>
-            <li>• Brand Positioning</li>
-          </ul>
+  <!-- WHY US -->
+  <section id="why-us" class="relative z-10 px-6 py-24 reveal">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="section-kicker mb-4">Why Quirino Talent</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Built Like An Operation, Not Just An Agency</h2>
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+          We focus on the systems behind creator growth: execution, workflow, reporting, and operational consistency.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="glass hover-card rounded-3xl p-8">
+          <h3 class="text-2xl font-bold text-indigo-400 mb-4">Systems First</h3>
+          <p class="text-gray-300">Structured workflows for scheduling, operations, communication, and execution.</p>
+        </div>
+
+        <div class="glass hover-card rounded-3xl p-8">
+          <h3 class="text-2xl font-bold text-indigo-400 mb-4">Selective Support</h3>
+          <p class="text-gray-300">We review creator fit before onboarding to maintain quality and capacity.</p>
+        </div>
+
+        <div class="glass hover-card rounded-3xl p-8">
+          <h3 class="text-2xl font-bold text-indigo-400 mb-4">Privacy Focused</h3>
+          <p class="text-gray-300">Creator information, account access, and operational data are handled carefully.</p>
+        </div>
+
+        <div class="glass hover-card rounded-3xl p-8">
+          <h3 class="text-2xl font-bold text-indigo-400 mb-4">Growth Structure</h3>
+          <p class="text-gray-300">Marketing, analytics, platform strategy, and daily operations work together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS + SYSTEMS -->
+  <section id="process" class="relative z-10 px-6 py-24 reveal">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+
+        <div>
+          <p class="section-kicker mb-4">How It Works</p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">From Strategy Call To Growth System</h2>
+          <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+            We keep the process clear before any management begins. The goal is to understand your current setup,
+            identify bottlenecks, and build the right support structure.
+          </p>
+
+          <div class="space-y-5">
+            <div class="glass hover-card rounded-3xl p-7">
+              <div class="text-indigo-400 font-black text-3xl mb-3">01</div>
+              <h3 class="text-2xl font-bold mb-2">Book a Strategy Call</h3>
+              <p class="text-gray-300">Choose an available schedule and tell us what kind of support you need.</p>
+            </div>
+
+            <div class="glass hover-card rounded-3xl p-7">
+              <div class="text-indigo-400 font-black text-3xl mb-3">02</div>
+              <h3 class="text-2xl font-bold mb-2">We Audit Your Setup</h3>
+              <p class="text-gray-300">We review your content flow, platforms, operations, and growth opportunities.</p>
+            </div>
+
+            <div class="glass hover-card rounded-3xl p-7">
+              <div class="text-indigo-400 font-black text-3xl mb-3">03</div>
+              <h3 class="text-2xl font-bold mb-2">We Build The System</h3>
+              <p class="text-gray-300">Once aligned, we structure scheduling, management, reporting, and execution workflows.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-[40px] p-8 md:p-10 hover-card overflow-hidden">
+          <p class="section-kicker mb-5">Dashboard Preview</p>
+          <h3 class="text-3xl font-bold mb-8">Operational Infrastructure</h3>
+
+          <div class="grid gap-5">
+            <div class="bg-[#0f172a] rounded-3xl p-6 border border-white/5">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="font-bold text-xl">Content Queue</h4>
+                <span class="text-green-400 text-sm">Live</span>
+              </div>
+              <div class="space-y-3 text-gray-300">
+                <div class="bg-white/5 rounded-xl p-3">TikTok Drafts</div>
+                <div class="bg-white/5 rounded-xl p-3">Instagram Reels</div>
+                <div class="bg-white/5 rounded-xl p-3">OnlyFans PPV Queue</div>
+              </div>
+            </div>
+
+            <div class="bg-[#0f172a] rounded-3xl p-6 border border-white/5">
+              <div class="flex justify-between items-center mb-4">
+                <h4 class="font-bold text-xl">Performance Review</h4>
+                <span class="text-indigo-400 text-sm">Tracked</span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1 text-gray-300">
+                    <span>Content Consistency</span><span>91%</span>
+                  </div>
+                  <div class="h-3 bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-indigo-500 w-[91%]"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-1 text-gray-300">
+                    <span>Retention Workflow</span><span>82%</span>
+                  </div>
+                  <div class="h-3 bg-white/5 rounded-full overflow-hidden">
+                    <div class="h-full bg-indigo-400 w-[82%]"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div class="bg-white/5 rounded-2xl p-4">
+                <p class="text-indigo-400 font-black">Plan</p>
+                <p class="text-gray-400 text-sm">Strategy</p>
+              </div>
+              <div class="bg-white/5 rounded-2xl p-4">
+                <p class="text-indigo-400 font-black">Track</p>
+                <p class="text-gray-400 text-sm">Analytics</p>
+              </div>
+              <div class="bg-white/5 rounded-2xl p-4">
+                <p class="text-indigo-400 font-black">Scale</p>
+                <p class="text-gray-400 text-sm">Systems</p>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-<section id="process" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
-        How It Works
-      </p>
-
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        From Call To Growth System
-      </h2>
-
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        We keep the process simple, professional, and focused on building the right support system for your creator business.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8">
-
-      <div class="glass hover-card rounded-3xl p-10">
-        <div class="text-5xl font-black text-indigo-400 mb-6">01</div>
-        <h3 class="text-2xl font-bold mb-4">Book a Call</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Choose an available schedule and tell us what kind of support you need for your brand, account, or creator business.
+  <!-- REVIEWS -->
+  <section id="clients" class="relative z-10 px-6 py-24 reveal">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="section-kicker mb-4">Client Reviews</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">What Creators Say</h2>
+        <p class="text-gray-400 text-lg max-w-3xl mx-auto">
+          Sample feedback showing the type of creator experience Quirino Talent Company is built to deliver.
         </p>
       </div>
 
-      <div class="glass hover-card rounded-3xl p-10">
-        <div class="text-5xl font-black text-indigo-400 mb-6">02</div>
-        <h3 class="text-2xl font-bold mb-4">We Audit Your Setup</h3>
-        <p class="text-gray-300 leading-relaxed">
-          We review your current content flow, platforms, operations, growth opportunities, and bottlenecks.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-10">
-        <div class="text-5xl font-black text-indigo-400 mb-6">03</div>
-        <h3 class="text-2xl font-bold mb-4">We Build the System</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Once aligned, we create the management, marketing, scheduling, analytics, and backend support structure needed to scale.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-  <!-- PROOF / RESULTS -->
-<section id="results" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Proof of Systems</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">Built To Track Growth, Not Guess It</h2>
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Every creator partnership is supported by reporting, workflow structure, and performance tracking.
-        As we collect real client results, this section will be updated with verified case studies.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-4 gap-6">
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-4xl font-black text-indigo-400 mb-3">24/7</h3>
-        <p class="text-gray-300">Operational Support Structure</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-4xl font-black text-indigo-400 mb-3">100%</h3>
-        <p class="text-gray-300">Tracked Content Workflow</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-4xl font-black text-indigo-400 mb-3">Weekly</h3>
-        <p class="text-gray-300">Performance Review</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-4xl font-black text-indigo-400 mb-3">Custom</h3>
-        <p class="text-gray-300">Growth Strategy Per Creator</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- TEAM / FOUNDER -->
-<section id="team" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-
-    <div class="glass hover-card rounded-3xl p-10">
-      <div class="w-28 h-28 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 mb-6 flex items-center justify-center text-4xl font-black">
-        Q
-      </div>
-
-      <h2 class="text-4xl font-bold mb-6">Built By Operators</h2>
-
-      <p class="text-gray-300 text-lg leading-relaxed">
-        Quirino Talent Company is built around one simple idea: creators should not have to manage
-        every backend task alone. Our focus is operations, structure, scheduling, marketing systems,
-        analytics, and the team workflows needed to help creators grow professionally.
-      </p>
-    </div>
-
-    <div>
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Behind The Company</p>
-
-      <h3 class="text-4xl md:text-5xl font-bold mb-6">
-        A management system made for creators who want to scale.
-      </h3>
-
-      <p class="text-gray-300 text-lg leading-relaxed">
-        Instead of only offering advice, we help organize the moving pieces behind a creator business:
-        content flow, fan engagement, social strategy, performance review, account operations, and daily execution.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- AFTER BOOKING / PROCESS -->
-<section id="next-steps" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">After You Book</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">What Happens Next</h2>
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        No confusion, no messy onboarding. We follow a clear process before any management work begins.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-4 gap-6">
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <div class="text-4xl font-black text-indigo-400 mb-5">01</div>
-        <h3 class="text-xl font-bold mb-4">Discovery Call</h3>
-        <p class="text-gray-300">We discuss your current setup, goals, platforms, and what kind of support you need.</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <div class="text-4xl font-black text-indigo-400 mb-5">02</div>
-        <h3 class="text-xl font-bold mb-4">Account Audit</h3>
-        <p class="text-gray-300">We review your content flow, analytics, operations, and growth opportunities.</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <div class="text-4xl font-black text-indigo-400 mb-5">03</div>
-        <h3 class="text-xl font-bold mb-4">Plan Proposal</h3>
-        <p class="text-gray-300">We recommend the right service level, pricing structure, and backend support plan.</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <div class="text-4xl font-black text-indigo-400 mb-5">04</div>
-        <h3 class="text-xl font-bold mb-4">Onboarding</h3>
-        <p class="text-gray-300">Once approved, we set up workflows, communication, scheduling, and execution systems.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- DETAILED SERVICES BREAKDOWN -->
-<section id="service-breakdown" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Service Breakdown</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">What We Actually Help With</h2>
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Our work goes beyond basic posting. We focus on the operational and growth systems that keep creator businesses moving.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Creator Operations</h3>
-        <ul class="space-y-3 text-gray-300">
-          <li>• Content calendar management</li>
-          <li>• Scheduling workflow</li>
-          <li>• Account organization</li>
-          <li>• Daily task tracking</li>
-          <li>• Team coordination</li>
-        </ul>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Monetization Support</h3>
-        <ul class="space-y-3 text-gray-300">
-          <li>• PPV planning</li>
-          <li>• Fan retention strategy</li>
-          <li>• Tip menu structure</li>
-          <li>• Offer testing</li>
-          <li>• Revenue review</li>
-        </ul>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Marketing Systems</h3>
-        <ul class="space-y-3 text-gray-300">
-          <li>• TikTok growth direction</li>
-          <li>• Instagram content flow</li>
-          <li>• X / Twitter marketing</li>
-          <li>• Reddit-style traffic strategy</li>
-          <li>• Brand positioning</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-  <!-- WHY US / DIFFERENT -->
-<section id="why-us" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Why Quirino Talent</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Built Like An Operation, Not Just An Agency
-      </h2>
-
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Most management agencies focus only on promotion. We focus on systems, execution,
-        structure, and operational consistency that creators actually need to scale long-term.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Systems First</h3>
-        <p class="text-gray-300 leading-relaxed">
-          We build workflows for scheduling, operations, communication, tracking,
-          and execution instead of relying on random daily management.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Backend Support</h3>
-        <p class="text-gray-300 leading-relaxed">
-          We help reduce the operational pressure creators experience daily so they
-          can focus more on content and monetization.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Growth Structure</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Content strategy, analytics review, platform positioning, scheduling,
-          and performance tracking are integrated into one workflow.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- TRANSPARENCY -->
-<section id="transparency" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Transparency</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Clear Expectations From Day One
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-6">
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold mb-5 text-indigo-400">Pricing Structure</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Pricing depends on the level of support required, platform scope,
-          content consistency, operational workload, and growth goals.
-          Most management plans operate on percentage-based structures.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold mb-5 text-indigo-400">Onboarding Process</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Every client goes through a discovery call, operational review,
-          and onboarding setup before execution begins.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold mb-5 text-indigo-400">Communication</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Communication channels are organized depending on the creator’s
-          preferred workflow including Telegram, Discord, WhatsApp, or email.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold mb-5 text-indigo-400">Flexible Scaling</h3>
-        <p class="text-gray-300 leading-relaxed">
-          Services can scale depending on account growth, content volume,
-          staffing requirements, and operational complexity.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- LIMITED CLIENTS -->
-<section id="limited" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-5xl mx-auto text-center">
-
-    <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Selective Partnerships</p>
-
-    <h2 class="text-4xl md:text-5xl font-bold mb-8">
-      We Do Not Accept Every Creator
-    </h2>
-
-    <p class="text-gray-300 text-xl leading-relaxed mb-10">
-      To maintain operational quality and proper support, Quirino Talent Company
-      only works with a limited number of creators at a time.
-    </p>
-
-    <div class="glass rounded-3xl p-10 border border-indigo-500/30">
-      <div class="text-6xl font-black text-indigo-400 mb-4">LIMITED</div>
-      <p class="text-gray-300 text-lg">
-        New creator slots are reviewed manually based on fit, goals,
-        platform readiness, and operational capacity.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- PLATFORM EXPERTISE -->
-<section id="platforms" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Platform Expertise</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Multi-Platform Growth Systems
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-5 gap-6">
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-2xl font-bold mb-3">OnlyFans</h3>
-        <p class="text-gray-400">Monetization & retention systems</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-2xl font-bold mb-3">TikTok</h3>
-        <p class="text-gray-400">Traffic & discoverability strategy</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-2xl font-bold mb-3">Instagram</h3>
-        <p class="text-gray-400">Brand positioning & engagement</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-2xl font-bold mb-3">X / Twitter</h3>
-        <p class="text-gray-400">Audience retention & funneling</p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8 text-center">
-        <h3 class="text-2xl font-bold mb-3">Reddit</h3>
-        <p class="text-gray-400">Traffic generation systems</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- SECURITY -->
-<section id="security" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-6xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Security & Privacy</p>
-
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Creator Privacy Matters
-      </h2>
-
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Operational access, scheduling systems, and creator information are handled
-        with structured workflows and restricted internal access.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Restricted Access</h3>
-        <p class="text-gray-300">
-          Only authorized team members are given operational access depending on role requirements.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Internal Systems</h3>
-        <p class="text-gray-300">
-          Scheduling, analytics, operations, and communication are organized through structured systems.
-        </p>
-      </div>
-
-      <div class="glass hover-card rounded-3xl p-8">
-        <h3 class="text-2xl font-bold text-indigo-400 mb-5">Privacy Focused</h3>
-        <p class="text-gray-300">
-          Creator information and operational data are treated as confidential internal assets.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-  <!-- CLIENT REVIEWS -->
-<section id="clients" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
-        Client Reviews
-      </p>
-
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        What Creators Say
-      </h2>
-
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Sample creator feedback showing the type of experience Quirino Talent Company is built to deliver.
-      </p>
-    </div>
-
-    <div class="testimonial-slider">
-      <div class="testimonial-track">
-
-        <!-- first set -->
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
-          <p class="text-gray-300 mb-6">“They helped me stop feeling overwhelmed and gave me a real system for content, messages, and growth.”</p>
-          <h3 class="font-bold">Mia R.</h3>
-          <p class="text-gray-500">Lifestyle Creator</p>
+      <div class="testimonial-slider">
+        <div class="testimonial-track">
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+            <p class="text-gray-300 mb-6">“They gave me a real system for content, messages, and growth.”</p>
+            <h3 class="font-bold">Mia R.</h3>
+            <p class="text-gray-500">Lifestyle Creator</p>
+          </div>
+
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
+            <p class="text-gray-300 mb-6">“The operations support helped a lot. The systems were strong.”</p>
+            <h3 class="font-bold">Alyssa V.</h3>
+            <p class="text-gray-500">Digital Creator</p>
+          </div>
+
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+            <p class="text-gray-300 mb-6">“I could finally focus on creating while the backend was handled.”</p>
+            <h3 class="font-bold">Sofia L.</h3>
+            <p class="text-gray-500">Online Brand Partner</p>
+          </div>
+
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★☆☆</div>
+            <p class="text-gray-300 mb-6">“It took time to adjust, but the workflow became more organized.”</p>
+            <h3 class="font-bold">Nina C.</h3>
+            <p class="text-gray-500">Content Creator</p>
+          </div>
+
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/55.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
+            <p class="text-gray-300 mb-6">“The biggest value was consistency and accountability.”</p>
+            <h3 class="font-bold">Erika M.</h3>
+            <p class="text-gray-500">Social Creator</p>
+          </div>
+
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/72.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+            <p class="text-gray-300 mb-6">“They helped me understand what was working and what was not.”</p>
+            <h3 class="font-bold">Bella T.</h3>
+            <p class="text-gray-500">Brand Creator</p>
+          </div>
+
+          <!-- duplicate for seamless loop -->
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
+            <p class="text-gray-300 mb-6">“They gave me a real system for content, messages, and growth.”</p>
+            <h3 class="font-bold">Mia R.</h3>
+            <p class="text-gray-500">Lifestyle Creator</p>
+          </div>
+
+          <div class="glass hover-card review-card rounded-3xl p-8">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mb-5" alt="Client avatar"/>
+            <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
+            <p class="text-gray-300 mb-6">“The operations support helped a lot. The systems were strong.”</p>
+            <h3 class="font-bold">Alyssa V.</h3>
+            <p class="text-gray-500">Digital Creator</p>
+          </div>
         </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
-          <p class="text-gray-300 mb-6">“The operations support helped a lot. I wish I started with better content direction earlier, but the systems were strong.”</p>
-          <h3 class="font-bold">Alyssa V.</h3>
-          <p class="text-gray-500">Digital Creator</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
-          <p class="text-gray-300 mb-6">“I could finally focus on creating while the backend, scheduling, and analytics were handled properly.”</p>
-          <h3 class="font-bold">Sofia L.</h3>
-          <p class="text-gray-500">Online Brand Partner</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/21.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★☆☆</div>
-          <p class="text-gray-300 mb-6">“Good support and structure. It took some time to adjust to the workflow, but it made things more organized.”</p>
-          <h3 class="font-bold">Nina C.</h3>
-          <p class="text-gray-500">Content Creator</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/33.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
-          <p class="text-gray-300 mb-6">“The team made my daily workload lighter. I had more time to shoot, plan, and actually enjoy creating again.”</p>
-          <h3 class="font-bold">Camille D.</h3>
-          <p class="text-gray-500">Creator Partner</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/55.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
-          <p class="text-gray-300 mb-6">“Their social media planning was clean and professional. The biggest value was consistency and accountability.”</p>
-          <h3 class="font-bold">Erika M.</h3>
-          <p class="text-gray-500">Social Creator</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/72.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
-          <p class="text-gray-300 mb-6">“They helped me understand what was working, what was not, and where my content should go next.”</p>
-          <h3 class="font-bold">Bella T.</h3>
-          <p class="text-gray-500">Brand Creator</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/90.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★☆☆</div>
-          <p class="text-gray-300 mb-6">“Solid management and reporting. I wanted faster results, but the backend support definitely helped me stay consistent.”</p>
-          <h3 class="font-bold">Jasmine K.</h3>
-          <p class="text-gray-500">Independent Creator</p>
-        </div>
-
-        <!-- duplicate set for seamless loop -->
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★★</div>
-          <p class="text-gray-300 mb-6">“They helped me stop feeling overwhelmed and gave me a real system for content, messages, and growth.”</p>
-          <h3 class="font-bold">Mia R.</h3>
-          <p class="text-gray-500">Lifestyle Creator</p>
-        </div>
-
-        <div class="glass hover-card review-card rounded-3xl p-8">
-          <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mb-5" />
-          <div class="text-indigo-400 text-2xl mb-4">★★★★☆</div>
-          <p class="text-gray-300 mb-6">“The operations support helped a lot. I wish I started with better content direction earlier, but the systems were strong.”</p>
-          <h3 class="font-bold">Alyssa V.</h3>
-          <p class="text-gray-500">Digital Creator</p>
-        </div>
-
       </div>
     </div>
-
-  </div>
-</section>
-
-  <!-- FAQ -->
-<section id="faq" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-5xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">FAQ</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Common Questions
-      </h2>
-    </div>
-
-    <div class="space-y-5">
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">How does pricing work?</h3>
-        <p class="text-gray-300">
-          Pricing depends on the level of management, operational support,
-          platform scope, and creator requirements.
-        </p>
-      </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">Do I need experience?</h3>
-        <p class="text-gray-300">
-          No. We work with both experienced creators and creators who are still building structure.
-        </p>
-      </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">Do you handle chatting?</h3>
-        <p class="text-gray-300">
-          Depending on the selected plan and creator needs, operational support can include fan communication workflows.
-        </p>
-      </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">Do you work internationally?</h3>
-        <p class="text-gray-300">
-          Yes. We work remotely and communicate through organized online systems.
-        </p>
-      </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">How long before results?</h3>
-        <p class="text-gray-300">
-          Growth timelines depend on content consistency, platform positioning,
-          operational execution, and audience response.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
+  </section>
 
   <!-- PRICING -->
-  <section id="pricing" class="relative z-10 px-6 py-28 reveal">
-
+  <section id="pricing" class="relative z-10 px-6 py-24 reveal">
     <div class="max-w-7xl mx-auto">
-
       <div class="text-center mb-20">
-        <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">
-          Pricing
-        </p>
-
-        <h2 class="text-5xl font-bold mb-6">
-          Flexible Growth Plans
-        </h2>
-
+        <p class="section-kicker mb-4">Pricing</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Flexible Growth Plans</h2>
         <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-          We provide scalable management solutions depending on the level of support,
-          growth strategy, and operational involvement your brand requires.
+          Plans are structured around the level of support, operational involvement, and platform growth required.
         </p>
       </div>
 
-      <!-- OF PRICING -->
       <div class="mb-24">
-
-        <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">
-          OnlyFans Management
-        </h3>
+        <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">OnlyFans Management</h3>
 
         <div class="grid md:grid-cols-3 gap-8">
-
-          <div class="glass hover-card rounded-3xl p-10 relative overflow-hidden">
+          <div class="glass hover-card rounded-3xl p-10">
             <h4 class="text-2xl font-bold mb-2">Starter</h4>
             <p class="text-gray-400 mb-6">For growing creators</p>
             <div class="text-5xl font-black mb-6 text-indigo-400">20%</div>
             <p class="text-gray-400 mb-8">Revenue Share</p>
-
             <ul class="space-y-4 text-gray-300">
-              <li>• Account Management</li>
-              <li>• Content Scheduling</li>
-              <li>• Messaging Assistance</li>
-              <li>• Basic Analytics</li>
-              <li>• Growth Consultation</li>
+              <li>• Account management</li>
+              <li>• Content scheduling</li>
+              <li>• Messaging assistance</li>
+              <li>• Basic analytics</li>
+              <li>• Growth consultation</li>
             </ul>
           </div>
 
-          <div class="glass hover-card rounded-3xl p-10 border border-indigo-500 relative overflow-hidden md:scale-105">
-            <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">
-              Most Popular
-            </div>
-
+          <div class="glass hover-card rounded-3xl p-10 border-2 border-indigo-500 relative overflow-hidden md:scale-105">
+            <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">Most Popular</div>
             <h4 class="text-2xl font-bold mb-2">Growth</h4>
             <p class="text-gray-400 mb-6">Full scaling support</p>
             <div class="text-5xl font-black mb-6 text-indigo-400">30%</div>
             <p class="text-gray-400 mb-8">Revenue Share</p>
-
             <ul class="space-y-4 text-gray-300">
-              <li>• Advanced Chatting Systems</li>
-              <li>• Traffic & Promotion</li>
-              <li>• Reddit & X Marketing</li>
-              <li>• Revenue Optimization</li>
-              <li>• Retention Strategies</li>
-              <li>• Content Planning</li>
-              <li>• Backend Operations</li>
+              <li>• Advanced chatting systems</li>
+              <li>• Traffic and promotion</li>
+              <li>• Reddit and X marketing</li>
+              <li>• Revenue optimization</li>
+              <li>• Retention strategy</li>
+              <li>• Backend operations</li>
             </ul>
           </div>
 
-          <div class="glass hover-card rounded-3xl p-10 relative overflow-hidden">
+          <div class="glass hover-card rounded-3xl p-10">
             <h4 class="text-2xl font-bold mb-2">Elite</h4>
             <p class="text-gray-400 mb-6">Hands-off scaling</p>
             <div class="text-5xl font-black mb-6 text-indigo-400">40%</div>
             <p class="text-gray-400 mb-8">Revenue Share</p>
-
             <ul class="space-y-4 text-gray-300">
-              <li>• Dedicated Team Support</li>
-              <li>• Full Backend Management</li>
-              <li>• Payroll Coordination</li>
-              <li>• Aggressive Scaling</li>
-              <li>• Advanced Analytics</li>
-              <li>• Daily Operations Handling</li>
-              <li>• Priority Strategy Support</li>
+              <li>• Dedicated team support</li>
+              <li>• Full backend management</li>
+              <li>• Payroll coordination</li>
+              <li>• Aggressive scaling</li>
+              <li>• Advanced analytics</li>
+              <li>• Priority strategy support</li>
             </ul>
           </div>
-
         </div>
       </div>
 
-      <!-- SOCIAL MEDIA -->
       <div>
-
-        <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">
-          Social Media Marketing
-        </h3>
+        <h3 class="text-3xl font-bold mb-10 text-center text-indigo-400">Social Media Marketing</h3>
 
         <div class="grid md:grid-cols-3 gap-8">
-
           <div class="glass hover-card rounded-3xl p-10">
             <h4 class="text-2xl font-bold mb-2">Starter</h4>
             <p class="text-gray-400 mb-6">Single platform management</p>
             <div class="text-5xl font-black mb-6 text-indigo-400">$300</div>
             <p class="text-gray-400 mb-8">per month</p>
-
             <ul class="space-y-4 text-gray-300">
-              <li>• Posting & Scheduling</li>
-              <li>• Basic Growth Strategy</li>
-              <li>• Analytics Tracking</li>
-              <li>• Profile Optimization</li>
+              <li>• Posting and scheduling</li>
+              <li>• Basic growth strategy</li>
+              <li>• Analytics tracking</li>
+              <li>• Profile optimization</li>
             </ul>
           </div>
 
-          <div class="glass hover-card rounded-3xl p-10 border border-indigo-500 relative overflow-hidden md:scale-105">
-            <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">
-              Recommended
-            </div>
-
+          <div class="glass hover-card rounded-3xl p-10 border-2 border-indigo-500 relative overflow-hidden md:scale-105">
+            <div class="absolute top-4 right-4 bg-indigo-500 px-3 py-1 rounded-full text-sm font-semibold">Recommended</div>
             <h4 class="text-2xl font-bold mb-2">Growth</h4>
             <p class="text-gray-400 mb-6">Multi-platform expansion</p>
             <div class="text-5xl font-black mb-6 text-indigo-400">$700</div>
             <p class="text-gray-400 mb-8">per month</p>
-
             <ul class="space-y-4 text-gray-300">
-              <li>• Multi-Platform Management</li>
-              <li>• Viral Strategy</li>
-              <li>• Audience Engagement</li>
-              <li>• Advanced Analytics</li>
-              <li>• Content Direction</li>
+              <li>• Multi-platform management</li>
+              <li>• Viral strategy</li>
+              <li>• Audience engagement</li>
+              <li>• Advanced analytics</li>
+              <li>• Content direction</li>
             </ul>
           </div>
 
@@ -994,458 +608,133 @@
             <p class="text-gray-400 mb-6">Enterprise-level support</p>
             <div class="text-5xl font-black mb-6 text-indigo-400">Custom</div>
             <p class="text-gray-400 mb-8">pricing</p>
-
             <ul class="space-y-4 text-gray-300">
-              <li>• Full Growth Operations</li>
-              <li>• Team Coordination</li>
-              <li>• Large-Scale Campaigns</li>
-              <li>• Advanced Branding</li>
-              <li>• Dedicated Support</li>
+              <li>• Full growth operations</li>
+              <li>• Team coordination</li>
+              <li>• Large-scale campaigns</li>
+              <li>• Advanced branding</li>
+              <li>• Dedicated support</li>
             </ul>
           </div>
-
         </div>
-
       </div>
 
+      <div class="mt-16 max-w-4xl mx-auto glass rounded-3xl p-8 text-center">
+        <h3 class="text-2xl font-bold mb-4 text-indigo-400">Pricing Notice</h3>
+        <p class="text-gray-300 leading-relaxed text-lg">
+          Final pricing may vary depending on creator size, current revenue, platform needs,
+          team involvement, promotional requirements, and backend support required.
+        </p>
+      </div>
     </div>
-
-    <div class="mt-16 max-w-4xl mx-auto glass rounded-3xl p-8 text-center">
-  <h3 class="text-2xl font-bold mb-4 text-indigo-400">
-    Pricing Notice
-  </h3>
-
-  <p class="text-gray-300 leading-relaxed text-lg">
-    Final pricing may vary depending on creator size, current revenue, platform needs,
-    team involvement, promotional requirements, and the level of backend support required.
-    All plans are reviewed and confirmed during the discovery call before any service begins.
-  </p>
-</div>
-
   </section>
 
   <!-- FAQ -->
-<section id="faq" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-5xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">FAQ</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Common Questions
-      </h2>
-    </div>
-
-    <div class="space-y-5">
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">How does pricing work?</h3>
-        <p class="text-gray-300">
-          Pricing depends on the level of management, operational support,
-          platform scope, and creator requirements.
-        </p>
+  <section id="faq" class="relative z-10 px-6 py-24 reveal">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="section-kicker mb-4">FAQ</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Common Questions</h2>
       </div>
 
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">Do I need experience?</h3>
-        <p class="text-gray-300">
-          No. We work with both experienced creators and creators who are still building structure.
-        </p>
+      <div class="space-y-5">
+        <details class="glass rounded-3xl p-8 hover-card">
+          <summary class="text-2xl font-bold cursor-pointer">How does pricing work?</summary>
+          <p class="text-gray-300 mt-5">Pricing depends on management level, operational support, platform scope, creator size, and required execution.</p>
+        </details>
+
+        <details class="glass rounded-3xl p-8 hover-card">
+          <summary class="text-2xl font-bold cursor-pointer">Do you handle chatting?</summary>
+          <p class="text-gray-300 mt-5">Depending on the selected plan, operational support can include fan communication workflows and monetization systems.</p>
+        </details>
+
+        <details class="glass rounded-3xl p-8 hover-card">
+          <summary class="text-2xl font-bold cursor-pointer">Do I need experience?</summary>
+          <p class="text-gray-300 mt-5">No. We work with both experienced creators and creators who are still building structure.</p>
+        </details>
+
+        <details class="glass rounded-3xl p-8 hover-card">
+          <summary class="text-2xl font-bold cursor-pointer">Do you work internationally?</summary>
+          <p class="text-gray-300 mt-5">Yes. We work remotely and communicate through organized online systems.</p>
+        </details>
+
+        <details class="glass rounded-3xl p-8 hover-card">
+          <summary class="text-2xl font-bold cursor-pointer">How fast can onboarding happen?</summary>
+          <p class="text-gray-300 mt-5">Depending on availability and creator readiness, onboarding can begin after the discovery process is completed.</p>
+        </details>
       </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">Do you handle chatting?</h3>
-        <p class="text-gray-300">
-          Depending on the selected plan and creator needs, operational support can include fan communication workflows.
-        </p>
-      </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">Do you work internationally?</h3>
-        <p class="text-gray-300">
-          Yes. We work remotely and communicate through organized online systems.
-        </p>
-      </div>
-
-      <div class="glass rounded-3xl p-8 hover-card">
-        <h3 class="text-2xl font-bold mb-4">How long before results?</h3>
-        <p class="text-gray-300">
-          Growth timelines depend on content consistency, platform positioning,
-          operational execution, and audience response.
-        </p>
-      </div>
-
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- MAIN CTA -->
+  <section id="contact" class="relative z-10 px-6 py-28 reveal">
+    <div class="max-w-5xl mx-auto text-center">
+      <div class="glass rounded-[40px] p-12 md:p-20 border border-indigo-500/30 hover-card">
+        <p class="section-kicker mb-6">Ready To Scale?</p>
 
-  <!-- FAQ EXPANDED -->
-<section id="faq-expanded" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-5xl mx-auto">
+        <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+          Let’s Build Your Growth System.
+        </h2>
 
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Creator Questions</p>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Everything You Might Want To Know
-      </h2>
-
-      <p class="text-gray-400 text-lg">
-        Questions creators usually ask before working with us.
-      </p>
-    </div>
-
-    <div class="space-y-5">
-
-      <details class="glass rounded-3xl p-8 hover-card group">
-        <summary class="text-2xl font-bold cursor-pointer">
-          How involved do I need to be?
-        </summary>
-
-        <p class="text-gray-300 mt-5 leading-relaxed">
-          We aim to reduce operational stress as much as possible.
-          Creators still provide content direction and approvals,
-          but backend systems, organization, and workflow support are handled by us.
+        <p class="text-gray-300 text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
+          Book a strategy call and let’s discuss your content, operations,
+          monetization systems, and long-term growth strategy.
         </p>
-      </details>
 
-      <details class="glass rounded-3xl p-8 hover-card group">
-        <summary class="text-2xl font-bold cursor-pointer">
-          Do I need to post every day?
-        </summary>
-
-        <p class="text-gray-300 mt-5 leading-relaxed">
-          Consistency helps growth, but we help structure posting schedules,
-          content batching, and workflow systems to make consistency easier.
-        </p>
-      </details>
-
-      <details class="glass rounded-3xl p-8 hover-card group">
-        <summary class="text-2xl font-bold cursor-pointer">
-          What platforms do you support?
-        </summary>
-
-        <p class="text-gray-300 mt-5 leading-relaxed">
-          We currently support OnlyFans, Instagram, TikTok,
-          X/Twitter, and Reddit-focused growth systems.
-        </p>
-      </details>
-
-      <details class="glass rounded-3xl p-8 hover-card group">
-        <summary class="text-2xl font-bold cursor-pointer">
-          How fast can onboarding happen?
-        </summary>
-
-        <p class="text-gray-300 mt-5 leading-relaxed">
-          Depending on availability and creator readiness,
-          onboarding can begin shortly after the discovery process is completed.
-        </p>
-      </details>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- DASHBOARD PREVIEW -->
-<section id="dashboard-preview" class="relative z-10 px-6 py-28 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-4">Operational Infrastructure</p>
-
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Built Around Real Workflow Systems
-      </h2>
-
-      <p class="text-gray-400 text-lg max-w-3xl mx-auto">
-        Quirino Talent Company is supported by internal systems for scheduling,
-        content organization, operations, analytics tracking, and creator workflow management.
-      </p>
-    </div>
-
-    <div class="glass rounded-[40px] p-8 md:p-10 hover-card overflow-hidden">
-
-      <div class="grid md:grid-cols-3 gap-6 mb-6">
-
-        <div class="bg-[#0f172a] rounded-3xl p-6 border border-white/5">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-xl">Content Queue</h3>
-            <span class="text-green-400 text-sm">Live</span>
-          </div>
-
-          <div class="space-y-3">
-            <div class="bg-white/5 rounded-xl p-3">TikTok Drafts</div>
-            <div class="bg-white/5 rounded-xl p-3">Instagram Reels</div>
-            <div class="bg-white/5 rounded-xl p-3">OnlyFans PPV Queue</div>
-          </div>
-        </div>
-
-        <div class="bg-[#0f172a] rounded-3xl p-6 border border-white/5">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-xl">Analytics</h3>
-            <span class="text-indigo-400 text-sm">Updated</span>
-          </div>
-
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between mb-1">
-                <span>Retention</span>
-                <span>82%</span>
-              </div>
-              <div class="h-3 bg-white/5 rounded-full overflow-hidden">
-                <div class="h-full bg-indigo-500 w-[82%]"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between mb-1">
-                <span>Content Consistency</span>
-                <span>91%</span>
-              </div>
-              <div class="h-3 bg-white/5 rounded-full overflow-hidden">
-                <div class="h-full bg-indigo-400 w-[91%]"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-[#0f172a] rounded-3xl p-6 border border-white/5">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-xl">Operations</h3>
-            <span class="text-pink-400 text-sm">Active</span>
-          </div>
-
-          <div class="space-y-3">
-            <div class="bg-white/5 rounded-xl p-3">Scheduling Team</div>
-            <div class="bg-white/5 rounded-xl p-3">Content Tracking</div>
-            <div class="bg-white/5 rounded-xl p-3">Payroll Monitoring</div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- MAIN CTA -->
-<section id="main-cta" class="relative z-10 px-6 py-32 reveal">
-  <div class="max-w-5xl mx-auto text-center">
-
-    <div class="glass rounded-[40px] p-12 md:p-20 border border-indigo-500/30">
-
-      <p class="uppercase tracking-[0.3em] text-indigo-400 mb-6">
-        Ready To Scale?
-      </p>
-
-      <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
-        Book Your Strategy Call
-      </h2>
-
-      <p class="text-gray-300 text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
-        Let’s discuss your creator goals, operational challenges,
-        content systems, and long-term growth strategy.
-      </p>
-
-      <a href="apply.html"
-        class="inline-flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 hover:scale-105 transition duration-300 px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl shadow-indigo-500/30">
-        Book Strategy Call
-      </a>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- MOBILE OPTIMIZATION CSS -->
-<style>
-@media (max-width: 768px) {
-
-  h1 {
-    font-size: 3rem !important;
-    line-height: 1.1 !important;
-  }
-
-  h2 {
-    font-size: 2.3rem !important;
-    line-height: 1.2 !important;
-  }
-
-  .glass {
-    padding: 1.5rem !important;
-  }
-
-  .hover-card:hover {
-    transform: none !important;
-  }
-
-  .mobile-stack {
-    grid-template-columns: 1fr !important;
-  }
-
-  .mobile-center {
-    text-align: center !important;
-  }
-
-  .mobile-full {
-    width: 100% !important;
-  }
-
-}
-</style>
-
-<!-- LEGITIMACY STRIP -->
-<section id="legitimacy" class="relative z-10 px-6 pb-24 reveal">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="glass rounded-[32px] p-8 md:p-12">
-
-      <div class="grid md:grid-cols-4 gap-8 text-center">
-
-        <div>
-          <div class="text-4xl font-black text-indigo-400 mb-3">Structured</div>
-          <p class="text-gray-300">
-            Operational workflow systems
-          </p>
-        </div>
-
-        <div>
-          <div class="text-4xl font-black text-indigo-400 mb-3">Secure</div>
-          <p class="text-gray-300">
-            Privacy-focused management
-          </p>
-        </div>
-
-        <div>
-          <div class="text-4xl font-black text-indigo-400 mb-3">Scalable</div>
-          <p class="text-gray-300">
-            Multi-platform growth support
-          </p>
-        </div>
-
-        <div>
-          <div class="text-4xl font-black text-indigo-400 mb-3">Professional</div>
-          <p class="text-gray-300">
-            Organized creator onboarding
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="relative z-10 px-6 py-24 reveal">
-    <div class="max-w-4xl mx-auto glass hover-card rounded-3xl p-12 text-center">
-
-      <h2 class="text-4xl font-bold mb-6">
-        Let’s Build Together
-      </h2>
-
-      <p class="text-gray-300 mb-10 text-lg">
-        Ready to grow your brand or creator business? Choose how you want to move forward.
-      </p>
-
-      <div class="flex flex-col md:flex-row gap-4 justify-center mb-10">
         <a href="apply.html"
-            class="bg-indigo-500 hover:bg-indigo-600 transition px-8 py-4 rounded-xl font-semibold">
-            Get Started
+           class="inline-flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 hover:scale-105 transition duration-300 px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl shadow-indigo-500/30">
+          Book Strategy Call
         </a>
-      </div>
 
-      <div class="space-y-4 text-lg">
-        <p>
-          Email:
-          <span class="text-indigo-400">
+        <p class="text-gray-500 mt-8">
+          Business inquiries:
+          <a href="mailto:quirinotalentco@gmail.com" class="text-indigo-400 hover:text-indigo-300">
             quirinotalentco@gmail.com
-          </span>
-        </p>
-
-        <p>
-          Telegram:
-          <span class="text-indigo-400">
-            @quirinotalent
-          </span>
+          </a>
         </p>
       </div>
-
     </div>
   </section>
 
   <!-- FOOTER -->
-<footer class="relative z-10 bg-white text-gray-700 px-6 py-20">
-  <div class="max-w-7xl mx-auto">
+  <footer class="relative z-10 bg-white text-gray-700 px-6 py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-12 mb-16">
+        <div>
+          <h2 class="text-2xl font-black mb-6 text-gray-900">
+            Quirino Talent<span class="text-indigo-500">.</span>
+          </h2>
+          <p class="text-gray-500 leading-relaxed">
+            Creator growth, OnlyFans management, social media marketing, and backend operational systems.
+          </p>
+        </div>
 
-    <div class="grid md:grid-cols-4 gap-12 mb-16">
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">NAVIGATION</h3>
+          <ul class="space-y-4">
+            <li><a href="#services" class="footer-link">Services</a></li>
+            <li><a href="#clients" class="footer-link">Client Reviews</a></li>
+            <li><a href="#pricing" class="footer-link">Pricing</a></li>
+            <li><a href="apply.html" class="footer-link">Book Call</a></li>
+          </ul>
+        </div>
 
-      <div>
-        <h2 class="text-2xl font-black mb-6 text-gray-900">
-          Quirino Talent<span class="text-indigo-500">.</span>
-        </h2>
-
-        <p class="text-gray-500 leading-relaxed">
-          Creator growth, OnlyFans management, and social media marketing systems for modern digital brands.
-        </p>
+        <div>
+          <h3 class="font-bold tracking-widest text-gray-900 mb-6">LEGAL</h3>
+          <ul class="space-y-4">
+            <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
+            <li><a href="creator-agreement.html" class="footer-link">Creator Agreement</a></li>
+          </ul>
+        </div>
       </div>
 
-      <div>
-        <h3 class="font-bold tracking-widest text-gray-900 mb-6">
-          SERVICES
-        </h3>
-
-        <ul class="space-y-4">
-          <li><a href="index.html#services" class="footer-link">OnlyFans Management</a></li>
-          <li><a href="index.html#services" class="footer-link">Social Media Marketing</a></li>
-          <li><a href="index.html#process" class="footer-link">How It Works</a></li>
-          <li><a href="index.html#pricing" class="footer-link">Pricing</a></li>
-        </ul>
+      <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between gap-4">
+        <p class="text-gray-500">© 2026 Quirino Talent Company. All rights reserved.</p>
+        <p class="text-gray-500">Business inquiries: quirinotalentco@gmail.com</p>
       </div>
-
-      <div>
-        <h3 class="font-bold tracking-widest text-gray-900 mb-6">
-          COMPANY
-        </h3>
-
-        <ul class="space-y-4">
-          <li><a href="index.html#problem" class="footer-link">Home</a></li>
-          <li><a href="index.html#clients" class="footer-link">Client Reviews</a></li>
-          <li><a href="apply.html" class="footer-link">Book a Call</a></li>
-          <li><a href="mailto:quirinotalentco@gmail.com" class="footer-link">Business Inquiry</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-bold tracking-widest text-gray-900 mb-6">
-          LEGAL
-        </h3>
-
-        <ul class="space-y-4">
-          <li><a href="privacy.html" class="footer-link">Privacy Policy</a></li>
-          <li><a href="terms.html" class="footer-link">Terms of Service</a></li>
-          <li><a href="creator-agreement.html" class="footer-link">Creator Agreement</a></li>
-        </ul>
-      </div>
-
     </div>
-
-    <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between gap-4">
-      <p class="text-gray-500">
-        © 2026 Quirino Talent Company. All rights reserved.
-      </p>
-
-      <p class="text-gray-500">
-        Business inquiries:
-        <a href="mailto:quirinotalentco@gmail.com" class="footer-link">
-          quirinotalentco@gmail.com
-        </a>
-      </p>
-    </div>
-
-  </div>
-</footer>
+  </footer>
 
   <script>
     const revealElements = document.querySelectorAll('.reveal');
